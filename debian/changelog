@@ -1,3 +1,53 @@
+initramfs-tools (0.122ubuntu8.10) xenial; urgency=medium
+
+  * mkinitramfs: Delete or report temporary files in /var/tmp/ on failure.
+    (LP: #1713004)
+
+ -- Brian Murray <brian@ubuntu.com>  Tue, 05 Dec 2017 11:17:43 -0800
+
+initramfs-tools (0.122ubuntu8.9) xenial; urgency=low
+
+  * hook-functions: include backported bnxt driver. (LP: #1712491)
+
+ -- Andy Whitcroft <apw@ubuntu.com>  Wed, 30 Aug 2017 11:10:40 +0100
+
+initramfs-tools (0.122ubuntu8.8) xenial; urgency=medium
+
+  * hook-functions: include xhci-plat-hcd in auto_add_modules_list
+    (LP: #1649213)
+
+ -- Ike Panhc <ike.pan@canonical.com>  Wed, 14 Dec 2016 13:59:43 +0800
+
+initramfs-tools (0.122ubuntu8.7) xenial; urgency=medium
+
+  * scripts/functions: clean up configure_networking and the function
+    all_netbootable_interfaces to not have side-effects. (LP: #1621507)
+
+ -- Mathieu Trudel-Lapierre <cyphermox@ubuntu.com>  Thu, 08 Dec 2016 18:01:45 +0100
+
+initramfs-tools (0.122ubuntu8.6) xenial; urgency=medium
+
+  [ Mathieu Trudel-Lapierre ]
+  * scripts/functions: for configure_networking:
+    - split out IPv6 options in its own cmdline parameter: ip6= ; always use
+      dhclient in this case if the value set is anything other than 'off' or
+      'none'. Furthermore, parse anything other than 'on', 'dhcp' or 'any' as
+      the name of an interface. (LP: #1621507)
+    - rework the stop conditions so that we properly handle the ROUNDTTT loop,
+      timing out after a short period of time and trying again after a short
+      sleep.
+    - add a 'done' parameter for both ip= and ip6= so that we can properly
+      exit the ROUNDTTT loop once we know that either there is no work to do,
+      or that we've achieved what we wanted (that is, to bring up IPv4, IPv6,
+      or possibly both).
+    - return ip=dhcp to the ipconfig use case; if set, then ipconfig will be
+      run using any interface available, or the BOOTIF if it was set.
+
+  [ LaMont Jones ]
+  * Only source ipv4 config in configure_networking() if it exists.
+
+ -- Mathieu Trudel-Lapierre <cyphermox@ubuntu.com>  Wed, 23 Nov 2016 15:50:50 -0500
+
 initramfs-tools (0.122ubuntu8.5) xenial; urgency=medium
 
   * scripts/functions: Revert configure_networking changes to the state at
